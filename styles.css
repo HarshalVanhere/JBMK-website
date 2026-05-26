@@ -1633,6 +1633,11 @@ input, textarea, select { font-family: var(--font); }
 .c-item h4 { font-size: 0.85rem; color: var(--white); margin-bottom: 0.2rem; }
 .c-item p { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
 
+/* Override: use darker text when contact info sits on a light background */
+.contact-info .c-item h4 { color: var(--primary-900); }
+.contact-info .c-item p { color: var(--gray-700); }
+.contact-info .c-icon { background: rgba(0,0,0,0.04); color: var(--primary-700); }
+
 /* ═══════════════════════════════════════════
    TIMELINE
    ═══════════════════════════════════════════ */
