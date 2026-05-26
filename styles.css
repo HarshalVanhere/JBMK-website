@@ -1199,6 +1199,36 @@ input, textarea, select { font-family: var(--font); }
 #mission-vision .tech-card p { color: var(--gray-700); }
 #mission-vision .tech-icon { background: var(--primary-50); color: var(--primary); }
 
+/* Commitment banner: increase vertical space and center content */
+.commitment-banner {
+  padding: 7rem 0;
+}
+.commitment-banner .container {
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.commitment-banner .commitment-text {
+  color: var(--white);
+  font-size: 1.25rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Quality page: ensure Quality Gates tech-cards are readable on light backgrounds */
+#quality-processes .tech-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+}
+#quality-processes .tech-card h3 { color: var(--primary); }
+#quality-processes .tech-card p { color: var(--gray-700); }
+#quality-processes .tech-icon { background: var(--primary-50); color: var(--primary); }
+
+/* Commitment banner: force dark background + white text to ensure readability */
+.commitment-banner { background: var(--primary); color: var(--white); }
+.commitment-banner .commitment-text { color: var(--white); font-size: 1.4rem; text-align: center; }
+
 /* Capability cards (light version) */
 .capability-grid {
   display: grid;
