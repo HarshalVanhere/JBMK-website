@@ -498,25 +498,83 @@ document.querySelectorAll('.has-floats').forEach(sec => {
   }
 });
 
-// ═══════════ LOGO MARQUEE ═══════════
+// ═══════════ LOGO / CERTIFICATE MARQUEE ═══════════
 (function(){
-  const marquee = document.querySelector('.marquee');
-  if (!marquee) return;
-  const mc = marquee.querySelector('.marquee-content');
-  if (!mc) return;
-  let speed = 0.6;
-  let offset = 0;
-  function step(){
-    const singleWidth = mc.scrollWidth / 2 || 0;
-    offset += speed;
-    if (offset >= singleWidth) offset = 0;
-    mc.style.transform = `translateX(${-offset}px)`;
-    requestAnimationFrame(step);
-  }
-  const startWhenReady = setInterval(() => {
-    if (mc.scrollWidth > 0) { clearInterval(startWhenReady); requestAnimationFrame(step); }
-  }, 50);
+  const marquees = document.querySelectorAll('.marquee');
+  if (!marquees.length) return;
+
+  marquees.forEach(marquee => {
+    const mc = marquee.querySelector('.marquee-content');
+    if (!mc) return;
+
+    let speed = 0.6;
+    let offset = 0;
+
+    function step(){
+      const singleWidth = mc.scrollWidth / 2 || 0;
+      offset += speed;
+      if (offset >= singleWidth) offset = 0;
+      mc.style.transform = `translateX(${-offset}px)`;
+      requestAnimationFrame(step);
+    }
+
+    const startWhenReady = setInterval(() => {
+      if (mc.scrollWidth > 0) {
+        clearInterval(startWhenReady);
+        requestAnimationFrame(step);
+      }
+    }, 50);
+  });
 })();
+
+// ═══════════ CERTIFICATE LIGHTBOX ═══════════
+function initCertificateLightbox() {
+  const lightbox = document.getElementById('certificateLightbox');
+  if (!lightbox) return;
+
+  const lightboxImage = lightbox.querySelector('.certificate-lightbox-image');
+  const lightboxTitle = lightbox.querySelector('.certificate-lightbox-title');
+  const closeButton = lightbox.querySelector('.certificate-lightbox-close');
+  const triggers = document.querySelectorAll('[data-certificate-src]');
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('no-scroll');
+  };
+
+  const openLightbox = (src, title) => {
+    if (!lightboxImage || !lightboxTitle) return;
+    lightboxImage.src = src;
+    lightboxImage.alt = title;
+    lightboxTitle.textContent = title;
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+  };
+
+  triggers.forEach(trigger => {
+    const activate = () => openLightbox(trigger.dataset.certificateSrc, trigger.dataset.certificateTitle || 'Certificate preview');
+    trigger.addEventListener('click', activate);
+    trigger.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        activate();
+      }
+    });
+  });
+
+  closeButton?.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', event => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+}
 
 // ═══════════ FORM SUBMIT ═══════════
 const form = document.getElementById('contactForm');
@@ -581,4 +639,5 @@ loadComponents().then(() => {
   if (document.getElementById('contactForm')) {
     handleContactFormAutoSelect();
   }
+  initCertificateLightbox();
 });
