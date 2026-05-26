@@ -1535,8 +1535,8 @@ input, textarea, select { font-family: var(--font); }
   z-index: 2;
   pointer-events: none;
 }
-.marquee::before { left: 0; background: linear-gradient(to right, var(--white) 0%, transparent 100%); }
-.marquee::after { right: 0; background: linear-gradient(to left, var(--white) 0%, transparent 100%); }
+.marquee::before { left: 0; background: transparent; }
+.marquee::after { right: 0; background: transparent; }
 /* Make clients marquee edges transparent on section-alt instead of gray */
 .section-alt .marquee::before { background: transparent; }
 .section-alt .marquee::after { background: transparent; }
@@ -1558,13 +1558,11 @@ input, textarea, select { font-family: var(--font); }
   max-height: 44px;
   display: block;
   object-fit: contain;
-  opacity: 0.5;
-  transition: all var(--duration) var(--ease);
-  filter: grayscale(100%);
+  opacity: 1;
+  transition: transform var(--duration) var(--ease), filter var(--duration) var(--ease);
+  filter: none;
 }
 .marquee-item:hover img {
-  opacity: 1;
-  filter: grayscale(0%);
   transform: scale(1.05);
 }
 
