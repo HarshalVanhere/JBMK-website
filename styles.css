@@ -1537,8 +1537,9 @@ input, textarea, select { font-family: var(--font); }
 }
 .marquee::before { left: 0; background: linear-gradient(to right, var(--white) 0%, transparent 100%); }
 .marquee::after { right: 0; background: linear-gradient(to left, var(--white) 0%, transparent 100%); }
-.section-alt .marquee::before { background: linear-gradient(to right, var(--gray-50) 0%, transparent 100%); }
-.section-alt .marquee::after { background: linear-gradient(to left, var(--gray-50) 0%, transparent 100%); }
+/* Make clients marquee edges transparent on section-alt instead of gray */
+.section-alt .marquee::before { background: transparent; }
+.section-alt .marquee::after { background: transparent; }
 .marquee-content {
   display: flex;
   width: fit-content;
