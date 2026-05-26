@@ -1,0 +1,22 @@
+{
+  "short_name": "JBMK",
+  "name": "JBMK Precision Components India Pvt. Ltd.",
+  "description": "Premium industrial pulley and accessory OEM manufacturer",
+  "icons": [
+    {
+      "src": "assets/images/JBMK Logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/images/JBMK Logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#002F6C",
+  "theme_color": "#002F6C",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -1,7 +1,7 @@
 // ═══════════ PAGE PRELOADER ═══════════
 const loader = document.createElement('div');
 loader.className = 'preloader';
-loader.innerHTML = `<div class="loader-inner"><div class="loader-logo"><img src="assets/images/JBMK%20Logo.png" alt="JBMK Logo"></div><div class="loader-bar"><div class="loader-fill"></div></div><div class="loader-text">JBMK Precision Components India Pvt. Ltd.​</div></div>`;
+loader.innerHTML = `<div class="loader-inner"><div class="loader-logo"><img src="assets/images/JBMK%20Logo.png" alt="JBMK Logo"></div><div class="loader-bar"><div class="loader-fill"></div></div><div class="loader-text">JBMK Precision Components India Pvt. Ltd.</div></div>`;
 document.body.prepend(loader);
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -11,19 +11,377 @@ window.addEventListener('load', () => {
   }, 1200);
 });
 
-// ═══════════ NAVBAR ═══════════
-const navbar = document.getElementById('navbar');
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  navbar.classList.toggle('scrolled', scrollY > 50);
-  if (scrollY > 400) {
-    navbar.classList.toggle('nav-hidden', scrollY > lastScroll);
-  } else {
-    navbar.classList.remove('nav-hidden');
+const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+// ═══════════ COMPONENT LOADER ═══════════
+async function loadComponents() {
+  const navbarPlaceholder = document.getElementById('navbar-placeholder');
+  const footerPlaceholder = document.getElementById('footer-placeholder');
+  const promises = [];
+
+  if (navbarPlaceholder) {
+    promises.push(
+      fetch('components/navbar.html')
+        .then(res => {
+          if (!res.ok) throw new Error('Navbar fetch failed');
+          return res.text();
+        })
+        .then(html => {
+          navbarPlaceholder.outerHTML = html;
+          initNavbar();
+        })
+        .catch(err => console.error('Failed to load navbar:', err))
+    );
   }
-  lastScroll = scrollY;
-});
+
+  if (footerPlaceholder) {
+    promises.push(
+      fetch('components/footer.html')
+        .then(res => {
+          if (!res.ok) throw new Error('Footer fetch failed');
+          return res.text();
+        })
+        .then(html => {
+          footerPlaceholder.outerHTML = html;
+        })
+        .catch(err => console.error('Failed to load footer:', err))
+    );
+  }
+
+  await Promise.all(promises);
+}
+
+// ═══════════ INITIALIZE NAVBAR ═══════════
+function initNavbar() {
+  const navbar = document.getElementById('navbar');
+  const mobileToggle = document.querySelector('.mobile-toggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  
+  if (!navbar) return;
+
+  // Scroll Behavior
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    navbar.classList.toggle('scrolled', scrollY > 50);
+    if (scrollY > 400) {
+      navbar.classList.toggle('nav-hidden', scrollY > lastScroll);
+    } else {
+      navbar.classList.remove('nav-hidden');
+    }
+    lastScroll = scrollY;
+  });
+
+  // Mobile Toggle
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      mobileToggle.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        mobileToggle.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // Active Link Highlighting
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
+  
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href) {
+      const isProductDetail = currentPath.startsWith('product-detail.html') && href.includes('products.html');
+      
+      // If we are on home page
+      if (currentPath === 'index.html' || currentPath === '') {
+        if (href === 'index.html') {
+          link.classList.add('nav-active');
+        }
+      } else if (href === currentPath || isProductDetail) {
+        link.classList.add('nav-active');
+      } else {
+        link.classList.remove('nav-active');
+      }
+    }
+  });
+
+  // Smooth scroll for hash links on the same page
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.pageYOffset - navbar.offsetHeight - 10;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+}
+
+// Global mobile dropdown toggle for navbar.html
+window.toggleMobileDropdown = function(button) {
+  const content = button.nextElementSibling;
+  button.classList.toggle('active');
+  if (content) {
+    content.classList.toggle('active');
+  }
+};
+
+// ═══════════ PRODUCTS CATALOG PAGE RENDERER ═══════════
+function renderProductsPage() {
+  const container = document.getElementById('products-grid-container');
+  if (!container || typeof productsData === 'undefined') return;
+
+  const renderList = (categoryFilter = 'all') => {
+    container.innerHTML = '';
+    
+    Object.keys(productsData).forEach(key => {
+      const p = productsData[key];
+      if (categoryFilter !== 'all' && p.category !== categoryFilter) return;
+
+      const card = document.createElement('div');
+      card.className = 'product-card reveal';
+      card.innerHTML = `
+        <div class="product-thumb">
+          <img src="${p.image}" alt="${p.name}">
+        </div>
+        <div class="product-body">
+          <span class="prod-cat-tag">${p.category === 'automotive' ? 'Automotive Pulley' : 'Engine Component'}</span>
+          <h3>${p.name}</h3>
+          <p>${p.tagline}</p>
+          <div class="product-card-footer">
+            <a href="product-detail.html?product=${key}" class="btn btn-outline btn-sm">View Technical Specs</a>
+            <a href="contact.html?product=${encodeURIComponent(p.name)}" class="product-link">RFQ</a>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // Re-bind reveals
+    const newReveals = container.querySelectorAll('.reveal');
+    newReveals.forEach(el => revealObserver.observe(el));
+
+    // Card interactions
+    if (!isMobile) {
+      container.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--shine-x', ((e.clientX - r.left) / r.width * 100) + '%');
+          card.style.setProperty('--shine-y', ((e.clientY - r.top) / r.height * 100) + '%');
+        });
+      });
+    }
+  };
+
+  // Set up categories filtering
+  const tabs = document.querySelectorAll('.product-filter-btn');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      renderList(filter);
+    });
+  });
+
+  renderList('all');
+}
+
+// ═══════════ PRODUCT DETAILS PAGE RENDERER ═══════════
+function renderProductDetailPage() {
+  const container = document.getElementById('product-detail-container');
+  if (!container || typeof productsData === 'undefined') return;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('product') || 'water-pump-pulley';
+  const p = productsData[productId];
+
+  if (!p) {
+    container.innerHTML = `
+      <div class="container" style="text-align: center; padding: 120px 20px;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary-900);">Component Not Found</h2>
+        <p style="color: var(--neutral-600); margin-bottom: 2rem;">The requested precision component does not exist in our catalog.</p>
+        <a href="products.html" class="btn btn-accent">View All Products</a>
+      </div>
+    `;
+    return;
+  }
+
+  // Set SEO Meta and Title Dynamically
+  document.title = `${p.name} — Technical Specifications | JBMK Precision Components`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) {
+    metaDesc.setAttribute('content', `Technical specifications, material tolerances, and OEM features of ${p.name} from JBMK Precision Components.`);
+  }
+
+  // Specifications
+  let specsHtml = '';
+  Object.keys(p.specs).forEach(key => {
+    specsHtml += `
+      <tr>
+        <td>${key}</td>
+        <td>${p.specs[key]}</td>
+      </tr>
+    `;
+  });
+
+  // Features
+  let featuresHtml = '';
+  p.features.forEach(f => {
+    featuresHtml += `<li>${f}</li>`;
+  });
+
+  // Applications
+  let appsHtml = '';
+  p.applications.forEach(a => {
+    appsHtml += `<li>${a}</li>`;
+  });
+
+  container.innerHTML = `
+    <div class="container">
+      <div class="breadcrumb reveal" style="margin-bottom: var(--space-8);">
+        <a href="index.html">Home</a>
+        <span class="sep">/</span>
+        <a href="products.html">Products</a>
+        <span class="sep">/</span>
+        <span>${p.name}</span>
+      </div>
+      
+      <div class="product-detail-grid">
+        <!-- Media Column -->
+        <div class="product-detail-image reveal">
+          <img src="${p.image}" alt="${p.name}" id="mainProductImg" style="transition: opacity 0.2s ease;">
+          <div class="product-gallery-thumbs" style="display: flex; gap: 0.5rem; padding: 1rem; border-top: 1px solid var(--gray-200); background: var(--white);">
+            <div class="gallery-thumb active" onclick="changeProductImage('${p.image}')" style="width: 70px; height: 70px; border-radius: var(--radius-md); overflow: hidden; border: 2px solid var(--primary); cursor: pointer; transition: all var(--duration);">
+              <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="gallery-thumb" onclick="changeProductImage('assets/images/plant_cnc.png')" style="width: 70px; height: 70px; border-radius: var(--radius-md); overflow: hidden; border: 2px solid transparent; cursor: pointer; transition: all var(--duration);">
+              <img src="assets/images/plant_cnc.png" alt="CNC Machining" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="gallery-thumb" onclick="changeProductImage('assets/images/plant_quality.png')" style="width: 70px; height: 70px; border-radius: var(--radius-md); overflow: hidden; border: 2px solid transparent; cursor: pointer; transition: all var(--duration);">
+              <img src="assets/images/plant_quality.png" alt="Quality Center" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Specification Info Column -->
+        <div class="product-detail-info reveal" data-delay="0.1">
+          <div class="hero-tag" style="margin-bottom: 1rem;"><span class="dot"></span> IATF 16949 Certified Manufacture</div>
+          <h2>${p.name}</h2>
+          <div class="product-detail-desc">${p.description}</div>
+          
+          <div class="product-features">
+            <h3>Performance Engineering Highlights</h3>
+            <ul class="feature-list">
+              ${featuresHtml}
+            </ul>
+          </div>
+
+          <div class="product-specs" style="margin-top: 2rem;">
+            <h3>Standard Applications</h3>
+            <ul style="list-style-type: disc; padding-left: 1.25rem; font-size: 0.9rem; color: var(--gray-600); display: flex; flex-direction: column; gap: 0.4rem;">
+              ${appsHtml}
+            </ul>
+          </div>
+
+          <div class="product-cta-box" style="margin-top: 2.5rem; text-align: left;">
+            <h3 style="color: var(--white);">Request technical consultation</h3>
+            <p>Our design and process engineers are ready to review your drawing specs and provide a competitive quote.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+              <a href="contact.html?product=${encodeURIComponent(p.name)}" class="btn btn-accent">Request Quote (RFQ)</a>
+              <a href="${p.image}" download class="btn btn-outline" style="border-color: rgba(255,255,255,0.3); color: var(--white);">Download Specsheet</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specs Table -->
+      <div class="product-specs reveal" style="margin-top: var(--space-20);">
+        <h2>Technical Specification &amp; Geometric Tolerances</h2>
+        <div style="margin-top: 1.5rem; overflow-x: auto;">
+          <table class="specs-table">
+            <tbody>
+              ${specsHtml}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Related -->
+      <div class="related-products reveal">
+        <h2>Related Components</h2>
+        <div class="products-grid" id="related-grid"></div>
+      </div>
+    </div>
+  `;
+
+  // Render Related
+  const relatedGrid = document.getElementById('related-grid');
+  if (relatedGrid) {
+    const keys = Object.keys(productsData).filter(k => k !== productId);
+    const shuffled = keys.sort(() => 0.5 - Math.random()).slice(0, 3);
+    
+    shuffled.forEach(key => {
+      const rp = productsData[key];
+      const card = document.createElement('div');
+      card.className = 'product-card reveal';
+      card.innerHTML = `
+        <div class="product-thumb">
+          <img src="${rp.image}" alt="${rp.name}">
+        </div>
+        <div class="product-body">
+          <h3>${rp.name}</h3>
+          <p>${rp.tagline}</p>
+          <a href="product-detail.html?product=${key}" class="product-link">View Technical Specs →</a>
+        </div>
+      `;
+      relatedGrid.appendChild(card);
+    });
+  }
+
+  // Re-observe
+  container.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+window.changeProductImage = function(src) {
+  const mainImg = document.getElementById('mainProductImg');
+  if (mainImg) {
+    mainImg.style.opacity = 0;
+    setTimeout(() => {
+      mainImg.src = src;
+      mainImg.style.opacity = 1;
+    }, 200);
+  }
+  document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+    const isThis = thumb.querySelector('img').getAttribute('src') === src;
+    thumb.classList.toggle('active', isThis);
+    thumb.style.borderColor = isThis ? 'var(--primary)' : 'transparent';
+  });
+};
+
+// ═══════════ CONTACT FORM PRODUCT AUTO-SELECT ═══════════
+function handleContactFormAutoSelect() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectVal = urlParams.get('product');
+  const selectEl = document.getElementById('product');
+  if (selectEl && selectVal) {
+    for (let i = 0; i < selectEl.options.length; i++) {
+      if (selectEl.options[i].text.toLowerCase() === selectVal.toLowerCase()) {
+        selectEl.selectedIndex = i;
+        break;
+      }
+    }
+  }
+}
 
 // ═══════════ SCROLL PROGRESS ═══════════
 const progressBar = document.createElement('div');
@@ -33,121 +391,6 @@ window.addEventListener('scroll', () => {
   const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
   progressBar.style.width = pct + '%';
 });
-
-// ═══════════ MOBILE MENU ═══════════
-const mobileToggle = document.querySelector('.mobile-toggle');
-const mobileMenu = document.querySelector('.mobile-menu');
-if (mobileToggle) {
-  mobileToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    mobileToggle.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-  });
-  mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      mobileMenu.classList.remove('active');
-      mobileToggle.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-  });
-}
-
-// ═══════════ PARTICLE SYSTEM ═══════════
-const canvas = document.getElementById('particleCanvas');
-if (canvas) {
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  let mouse = { x: null, y: null, radius: 150 };
-
-  function resizeCanvas() {
-    canvas.width = canvas.parentElement.offsetWidth;
-    canvas.height = canvas.parentElement.offsetHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  canvas.parentElement.addEventListener('mousemove', e => {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-  canvas.parentElement.addEventListener('mouseleave', () => {
-    mouse.x = null; mouse.y = null;
-  });
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.baseX = this.x;
-      this.baseY = this.y;
-      this.size = Math.random() * 2 + 0.5;
-      this.vx = (Math.random() - 0.5) * 0.3;
-      this.vy = (Math.random() - 0.5) * 0.3;
-      this.opacity = Math.random() * 0.4 + 0.1;
-      this.pulseSpeed = Math.random() * 0.02 + 0.005;
-      this.pulseOffset = Math.random() * Math.PI * 2;
-    }
-    update(time) {
-      // Float movement
-      this.x += this.vx;
-      this.y += this.vy;
-      // Pulse size
-      this.currentSize = this.size + Math.sin(time * this.pulseSpeed + this.pulseOffset) * 0.5;
-      // Mouse repulsion
-      if (mouse.x !== null) {
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
-          const force = (mouse.radius - dist) / mouse.radius;
-          this.x += dx * force * 0.03;
-          this.y += dy * force * 0.03;
-        }
-      }
-      // Wrap around
-      if (this.x < -10) this.x = canvas.width + 10;
-      if (this.x > canvas.width + 10) this.x = -10;
-      if (this.y < -10) this.y = canvas.height + 10;
-      if (this.y > canvas.height + 10) this.y = -10;
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.currentSize, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(200, 220, 255, ${this.opacity})`;
-      ctx.fill();
-    }
-  }
-
-  const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 12000));
-  for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-
-  let time = 0;
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    time++;
-    particles.forEach(p => { p.update(time); p.draw(); });
-    // Draw connections
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 130) {
-          const opacity = 0.08 * (1 - dist / 130);
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(200, 220, 255, ${opacity})`;
-          ctx.lineWidth = 0.6;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
 
 // ═══════════ SCROLL REVEAL ═══════════
 const revealEls = document.querySelectorAll('.reveal');
@@ -174,20 +417,7 @@ const textObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.3 });
 document.querySelectorAll('.text-reveal').forEach(el => textObs.observe(el));
 
-// ═══════════ SMOOTH SCROLL ═══════════
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) {
-      const top = t.getBoundingClientRect().top + window.pageYOffset - navbar.offsetHeight - 10;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  });
-});
-
 // ═══════════ SPOTLIGHT GLOW ═══════════
-const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 if (!isMobile) {
   document.querySelectorAll('.section-dark').forEach(sec => {
     const glow = document.createElement('div');
@@ -232,9 +462,8 @@ const cObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 document.querySelectorAll('.stat-number[data-target]').forEach(el => cObs.observe(el));
 
-// ═══════════ CARD INTERACTIONS ═══════════
+// ═══════════ CARD INTERACTIONS (SHINE/TILT) ═══════════
 if (!isMobile) {
-  // Shine effect
   document.querySelectorAll('.product-card, .infra-card, .quality-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
@@ -242,7 +471,7 @@ if (!isMobile) {
       card.style.setProperty('--shine-y', ((e.clientY - r.top) / r.height * 100) + '%');
     });
   });
-  // 3D tilt on infra
+
   document.querySelectorAll('.infra-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
@@ -269,14 +498,13 @@ document.querySelectorAll('.has-floats').forEach(sec => {
   }
 });
 
-// ═══════════ MARQUEE FALLBACK ANIMATION ═══════════
+// ═══════════ LOGO MARQUEE ═══════════
 (function(){
   const marquee = document.querySelector('.marquee');
   if (!marquee) return;
   const mc = marquee.querySelector('.marquee-content');
   if (!mc) return;
-  // Ensure items are duplicated for seamless scroll (HTML already duplicates)
-  let speed = 0.6; // px per frame (adjust for speed)
+  let speed = 0.6;
   let offset = 0;
   function step(){
     const singleWidth = mc.scrollWidth / 2 || 0;
@@ -285,30 +513,19 @@ document.querySelectorAll('.has-floats').forEach(sec => {
     mc.style.transform = `translateX(${-offset}px)`;
     requestAnimationFrame(step);
   }
-  // Start when content has width
   const startWhenReady = setInterval(() => {
     if (mc.scrollWidth > 0) { clearInterval(startWhenReady); requestAnimationFrame(step); }
   }, 50);
 })();
 
-// ═══════════ ACTIVE NAV ═══════════
-const secs = document.querySelectorAll('section[id]');
-window.addEventListener('scroll', () => {
-  const sy = window.pageYOffset + 120;
-  secs.forEach(s => {
-    const link = document.querySelector(`.nav-links a[href="#${s.id}"]`);
-    if (link) link.classList.toggle('nav-active', sy >= s.offsetTop && sy < s.offsetTop + s.offsetHeight);
-  });
-});
-
-// ═══════════ FORM ═══════════
+// ═══════════ FORM SUBMIT ═══════════
 const form = document.getElementById('contactForm');
 if (form) {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const btn = form.querySelector('button[type="submit"]');
     const orig = btn.innerHTML;
-    btn.innerHTML = '<span class="btn-loader"></span> Sending...';
+    btn.innerHTML = '<span class="btn-loader"></span> Sending Inquiry...';
     btn.disabled = true;
     setTimeout(() => {
       btn.innerHTML = '✓ Inquiry Sent Successfully!';
@@ -352,3 +569,16 @@ if (!isMobile) {
   }
   moveTrail();
 }
+
+// ═══════════ RUN APPLICATION INITIALIZATION ═══════════
+loadComponents().then(() => {
+  if (document.getElementById('products-grid-container')) {
+    renderProductsPage();
+  }
+  if (document.getElementById('product-detail-container')) {
+    renderProductDetailPage();
+  }
+  if (document.getElementById('contactForm')) {
+    handleContactFormAutoSelect();
+  }
+});
