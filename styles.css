@@ -647,7 +647,7 @@ input, textarea, select { font-family: var(--font); }
    ═══════════════════════════════════════════ */
 .page-hero {
   position: relative;
-  padding: 8rem 0 4rem;
+  padding: 6rem 0 2.5rem;
   background: var(--primary);
   overflow: hidden;
 }
@@ -2378,7 +2378,7 @@ body:not(.page-loaded) { overflow: hidden; }
   .section { padding: var(--space-16) 0; }
   .about-highlights { grid-template-columns: 1fr; }
   .back-to-top { right: 4.5rem; }
-  .page-hero { padding: 6rem 0 3rem; }
+  .page-hero { padding: 5rem 0 2rem; }
   .cert-badges { flex-direction: column; align-items: center; }
   .product-detail-image img { height: 300px; }
 
