@@ -1090,8 +1090,9 @@ input, textarea, select { font-family: var(--font); }
   grid-column: 1 / 3;
   grid-row: 2;
   align-self: end;
-  justify-self: start;
+  justify-self: end;
   padding-bottom: 0.5rem;
+  text-align: right;
 }
 .leader-quote-text {
   font-size: clamp(1rem, 1.5vw, 1.2rem);
