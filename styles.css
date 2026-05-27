@@ -2201,6 +2201,38 @@ body:not(.page-loaded) { overflow: hidden; }
   .page-hero { padding: 6rem 0 3rem; }
   .cert-badges { flex-direction: column; align-items: center; }
   .product-detail-image img { height: 300px; }
+
+  /* Awards grid styles */
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+  .award-card {
+    background: var(--white);
+    border: 1px solid var(--gray-100);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    text-align: left;
+  }
+  .award-year {
+    font-weight: 800;
+    color: var(--accent);
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+  }
+  .award-card h4 { color: var(--primary); margin-bottom: 0.25rem; }
+  .award-card .muted { color: var(--gray-500); font-size: 0.95rem; }
+
+  @media (max-width: 900px) {
+    .awards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .awards-grid { grid-template-columns: 1fr; }
+  }
   .ceo-grid { gap: var(--space-8); }
   .hero-btns { flex-direction: column; align-items: flex-start; }
 }
