@@ -706,9 +706,19 @@ input, textarea, select { font-family: var(--font); }
   border-radius: var(--radius-lg);
   box-shadow: 0 8px 40px rgba(0,0,0,0.08);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   overflow: hidden;
   border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Responsive: collapse stats into fewer columns on small screens */
+@media (max-width: 900px) {
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .stats-inner { grid-template-columns: 1fr; }
+  .stat-item { text-align: left; padding-left: 1.25rem; padding-right: 1.25rem; }
 }
 .stat-item {
   padding: 2.25rem 1.5rem;
