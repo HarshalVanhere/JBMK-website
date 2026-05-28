@@ -302,6 +302,17 @@ input, textarea, select { font-family: var(--font); }
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(255,106,0,0.3) !important;
 }
+.nav-group-logo {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 0 0.9rem !important;
+  margin-left: 0.2rem;
+}
+.nav-group-logo::after { display: none !important; }
+.nav-group-logo .logo-image {
+  height: 34px;
+}
 
 /* ── Mega Menu ── */
 .mega-menu {
