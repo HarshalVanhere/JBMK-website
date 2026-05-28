@@ -43,11 +43,7 @@
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://www.jbmkindustries.com/careers.html</loc>
-    <lastmod>2026-05-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
-  </url>
+  <!-- careers page removed -->
   <url>
     <loc>https://www.jbmkindustries.com/contact.html</loc>
     <lastmod>2026-05-26</lastmod>
