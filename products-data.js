@@ -4,7 +4,7 @@ const productsData = {
     "tagline": "Engine cooling systems",
     "category": "automotive",
     "image": "assets/images/products/WaterPumpPulleys.jpg",
-    "description": "Engineered for optimal engine cooling performance and durability. Our water pump pulleys are manufactured using high-precision progressive stamping and secondary machining to ensure perfect belt alignment, low vibration, and extended belt life.",
+    "description": "Engineered for optimal engine cooling performance and durability. Our water pump pulleys are manufactured using high-precision stamping and secondary machining to ensure perfect belt alignment, low vibration, and extended belt life.",
     "features": [
       "High-durability carbon steel construction",
       "Precision dynamic balancing to prevent bearing wear",
@@ -182,9 +182,9 @@ const productsData = {
     "tagline": "High-tolerance sheet metal parts",
     "category": "components",
     "image": "assets/images/products/precision-sheet-metal-component.jpg",
-    "description": "High-tolerance sheet metal parts for rigorous automotive and engine applications. Leveraging our state-of-the-art progressive stamping presses and CNC machining center, we manufacture key engine brackets, washers, and specialized shields with absolute dimensional repeatability.",
+    "description": "High-tolerance sheet metal parts for rigorous automotive and engine applications. Leveraging our state-of-the-art stamping presses and CNC machining center, we manufacture key engine brackets, washers, and specialized shields with absolute dimensional repeatability.",
     "features": [
-      "Complex multi-stage progressive stamping",
+      "Complex multi-stage stamping",
       "Critical deburring and surface preparation",
       "In-line camera inspection for dimension verification",
       "Welded or riveted multi-component assemblies"
