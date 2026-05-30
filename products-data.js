@@ -208,7 +208,7 @@ const productsData = {
     "name": "Damper Housing",
     "tagline": "Vibration damping components",
     "category": "components",
-    "image": "assets/images/pulley_products.png",
+    "image": "assets/images/products/DamperHousing.jpeg",
     "description": "Robust housings engineered for effective vibration damping and isolation. Damper housings encapsulate the elastomeric or viscous elements of torsional vibration dampers (TVD). Our housings are stamped and machined with high geometric accuracy to ensure seamless integration and balanced rotation.",
     "features": [
       "High roundness and concentricity to support rubber/silicone filling",
@@ -234,7 +234,7 @@ const productsData = {
     "name": "Decoupling Components",
     "tagline": "NVH reduction solutions",
     "category": "components",
-    "image": "assets/images/pulley_products.png",
+    "image": "assets/images/products/Decoupling_Comp.jpg",
     "description": "Advanced isolation components to reduce NVH (Noise, Vibration, and Harshness). These parts decouple rotational vibration between the engine crankshaft and accessory drive systems, protecting accessories and improving overall passenger cabin comfort.",
     "features": [
       "Multi-component precision assembly",
@@ -254,32 +254,6 @@ const productsData = {
       "Decoupled Crankshaft Pulleys",
       "Alternator Decouplers (OAD)",
       "Dual Mass Flywheel Sub-assemblies"
-    ]
-  },
-  "sheet-metal-pulley": {
-    "name": "Sheet Metal Pulley",
-    "tagline": "Lightweight high-strength formed pulleys",
-    "category": "automotive",
-    "image": "assets/images/pulley_products.png",
-    "description": "Lightweight, high-strength formed pulleys customized for specific automotive and industrial accessories. JBMK utilizes advanced flow-forming and spin-forming technologies to roll grooves directly into sheet metal, replacing heavy cast iron pulleys and reducing vehicle emissions.",
-    "features": [
-      "Up to 40% weight reduction compared to cast iron pulleys",
-      "Zero material wastage due to forming processes",
-      "Uniform wall thickness and grain structure for higher strength",
-      "High-speed spinning capability"
-    ],
-    "specs": {
-      "Material": "Extra Deep Drawing Steel (EDD / SAPH370)",
-      "Tolerance": "Groove runout ≤ 0.1 mm",
-      "Thickness": "1.2 mm - 3.0 mm",
-      "Groove Count": "2 to 10 grooves",
-      "Manufacturing Process": "CNC Spin Forming / Flow Forming",
-      "Balancing Grade": "ISO 1940 G6.3 / G2.5"
-    },
-    "applications": [
-      "Engine Accessory Drives",
-      "Industrial Blower Drives",
-      "Agricultural Machinery Pulleys"
     ]
   },
   "precision-brackets": {
