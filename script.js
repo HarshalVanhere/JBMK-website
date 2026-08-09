@@ -222,6 +222,13 @@ function renderProductDetailPage() {
   if (metaDesc) {
     metaDesc.setAttribute('content', `Technical specifications, material tolerances, and OEM features of ${p.name} from JBMK Precision Components.`);
   }
+  let canonicalLink = document.querySelector('link[rel="canonical"]');
+  if (!canonicalLink) {
+    canonicalLink = document.createElement('link');
+    canonicalLink.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonicalLink);
+  }
+  canonicalLink.setAttribute('href', `https://www.jbmkindustries.com/product-detail.html?product=${productId}`);
 
   // Specifications
   let specsHtml = '';

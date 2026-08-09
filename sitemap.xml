@@ -2,121 +2,168 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.jbmkindustries.com/index.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/about.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/products.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
+
+  <!-- Priority keyword-targeted product pages -->
+  <url>
+    <loc>https://www.jbmkindustries.com/spun-pulleys.html</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.jbmkindustries.com/poly-v-pulleys.html</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.jbmkindustries.com/tensioner-pulleys.html</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.jbmkindustries.com/stamped-pulleys.html</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.jbmkindustries.com/lightweight-riveted-v-belt-pulleys.html</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.jbmkindustries.com/deep-drawn-components.html</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.jbmkindustries.com/robotic-welded-assemblies.html</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <url>
     <loc>https://www.jbmkindustries.com/manufacturing.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/quality.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/industries.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/infrastructure.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
-  <!-- careers page removed -->
+    <loc>https://www.jbmkindustries.com/awards.html</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
   <url>
     <loc>https://www.jbmkindustries.com/contact.html</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>
+
   <!-- Dynamic Product Detail URLs for Indexing -->
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=water-pump-pulley</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=power-steering-pulley</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=air-conditioning-pulley</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=crankshaft-pulley</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=idler-pulley</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=alternator-pulley</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=timing-sensor-pulley</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=precision-engine-components</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=damper-housing</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=decoupling-components</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <!-- sheet-metal-pulley removed from catalog -->
-  </url>
-  <url>
     <loc>https://www.jbmkindustries.com/product-detail.html?product=precision-brackets</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>

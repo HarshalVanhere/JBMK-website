@@ -102,10 +102,10 @@ const productsData = {
   },
   "idler-pulley": {
     "name": "Sleeve / Idler Pulley",
-    "tagline": "Belt tensioning and routing",
+    "tagline": "Fixed-position belt routing",
     "category": "automotive",
     "image": "assets/images/products/IdlerPulley.png",
-    "description": "Precision bearing-mounted idlers for consistent belt tensioning and routing. Idle/sleeve pulleys from JBMK ensure optimal wrap angles for accessories and maintain proper tension throughout the belt life, reducing noise, vibration, and harshness (NVH) in the engine bay.",
+    "description": "Precision bearing-mounted idlers for consistent belt routing and wrap angle. Idle/sleeve pulleys from JBMK are fixed-position guides that route the belt around accessories, reducing noise, vibration, and harshness (NVH) in the engine bay. Looking for a spring-loaded automatic tensioner instead? See our dedicated <a href=\"tensioner-pulleys.html\">Tensioner Pulleys</a> range.",
     "features": [
       "Pre-lubricated, sealed-for-life double row bearings",
       "Smooth or grooved outer diameter surface to suit belt contact",
