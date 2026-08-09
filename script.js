@@ -228,7 +228,7 @@ function renderProductDetailPage() {
     canonicalLink.setAttribute('rel', 'canonical');
     document.head.appendChild(canonicalLink);
   }
-  canonicalLink.setAttribute('href', `https://www.jbmkindustries.com/product-detail.html?product=${productId}`);
+  canonicalLink.setAttribute('href', `https://www.jbmkprecision.com/product-detail.html?product=${productId}`);
 
   // Specifications
   let specsHtml = '';
