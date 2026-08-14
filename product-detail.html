@@ -3,30 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Component Specifications | JBMK Precision Components</title>
-  <meta name="description" content="Technical drawings, tolerances, specifications, and manufacturing characteristics for JBMK precision components.">
-  <link rel="icon" type="image/png" href="assets/images/JBMKFevicon.png">
-  <link rel="canonical" href="https://www.jbmkprecision.com/product-detail.html">
-  <link rel="stylesheet" href="styles.css">
+  <title>Redirecting… | JBMK Precision Components</title>
+  <meta name="robots" content="noindex">
+  <script>
+    (function () {
+      var validProducts = ["water-pump-pulley","power-steering-pulley","air-conditioning-pulley","crankshaft-pulley","idler-pulley","alternator-pulley","timing-sensor-pulley","precision-engine-components","damper-housing","decoupling-components","precision-brackets"];
+      var productId = new URLSearchParams(window.location.search).get('product');
+      var target = validProducts.indexOf(productId) !== -1 ? productId + '.html' : 'products.html';
+      window.location.replace(target);
+    })();
+  </script>
 </head>
 <body>
-
-  <!-- Dynamic Component: Navbar -->
-  <div id="navbar-placeholder"></div>
-
-  <!-- Dynamic Page Detail Container -->
-  <div id="product-detail-container">
-    <!-- Loaded dynamically via script.js -->
-    <div style="display: flex; justify-content: center; align-items: center; min-height: 400px;">
-      <span class="btn-loader" style="width: 40px; height: 40px; border-width: 4px;"></span>
-    </div>
-  </div>
-
-  <!-- Dynamic Component: Footer -->
-  <div id="footer-placeholder"></div>
-
-  <!-- Scripts -->
-  <script src="products-data.js"></script>
-  <script src="script.js"></script>
+  <p>Redirecting to <a href="products.html">our products page</a>&hellip;</p>
 </body>
 </html>

@@ -158,7 +158,7 @@ function renderProductsPage() {
           <h3>${p.name}</h3>
           <p>${p.tagline}</p>
           <div class="product-card-footer">
-            <a href="product-detail.html?product=${key}" class="btn btn-outline btn-sm">View Technical Specs</a>
+            <a href="${key}.html" class="btn btn-outline btn-sm">View Technical Specs</a>
             <a href="contact.html?product=${encodeURIComponent(p.name)}" class="product-link">RFQ</a>
           </div>
         </div>
@@ -348,7 +348,7 @@ function renderProductDetailPage() {
         <div class="product-body">
           <h3>${rp.name}</h3>
           <p>${rp.tagline}</p>
-          <a href="product-detail.html?product=${key}" class="product-link">View Technical Specs →</a>
+          <a href="${key}.html" class="product-link">View Technical Specs →</a>
         </div>
       `;
       relatedGrid.appendChild(card);
