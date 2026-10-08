@@ -1693,6 +1693,33 @@ input, textarea, select { font-family: var(--font); }
 .award-card h4 { font-size: 0.95rem; color: var(--primary); margin-bottom: 0.5rem; }
 .award-card p { font-size: 0.82rem; color: var(--gray-500); line-height: 1.6; }
 
+.award-card.highlight-card {
+  position: relative;
+  background: linear-gradient(180deg, #f3fff7 0%, #ffffff 100%);
+  border: 2px solid rgba(22, 163, 74, 0.35);
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.08);
+}
+.award-card.highlight-card h4 {
+  color: var(--success);
+}
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.rating-badge.green {
+  background: rgba(22, 163, 74, 0.12);
+  color: var(--success);
+  border: 1px solid rgba(22, 163, 74, 0.25);
+}
+
 /* ═══════════════════════════════════════════
    COMMITMENT / CTA BANNER
    ═══════════════════════════════════════════ */
